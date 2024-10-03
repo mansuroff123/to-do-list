@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import './App.css';
 
 function App() {
-  const [tasks, setTasks] = useState([])
-  const [newTask, setNewTask] = useState('')
+  const [tasks, setTasks] = useState([]);
+  const [newTask, setNewTask] = useState('');
 
   // Yangi vazifa qo'shish
   const addTask = () => {
@@ -14,48 +14,46 @@ function App() {
         completed: false
       };
       setTasks([...tasks, task]);
-      setNewTask(''); // Task Qo'shilgandan keyin inputni tozalash
+      setNewTask(''); // Qo'shilgandan keyin inputni tozalash
     }
-  }
+  };
 
   // Vazifani bajarilgan deb belgilash
   const toggleTaskCompletion = (id) => {
     setTasks(
       tasks.map((task) =>
-        task.id === id ? {...task, completed: !task.completed} : task
+        task.id === id ? { ...task, completed: !task.completed } : task
       )
     );
   };
 
   // Vazifani o'chirish
   const deleteTask = (id) => {
-    setTasks(tasks.filter((task) => task.id !== id))
+    setTasks(tasks.filter((task) => task.id !== id));
   };
 
   return (
-    <div className='app'>
+    <div className="app">
       <h1>To-do List</h1>
-      <div className='input-container'>
-        <input 
-        type='text' 
-        placeholder="Vazifa qo'shish" 
-        onChange={(e) => setNewTask(e.target.value)}
+      <div className="input-container">
+        <input
+          type="text"
+          value={newTask}
+          onChange={(e) => setNewTask(e.target.value)}
+          placeholder="Vazifa qo'shish"
         />
-        <button>Qo'shish</button>
+        <button onClick={addTask}>Qo'shish</button>
       </div>
-
       <ul>
         {tasks.map((task) => (
           <li key={task.id} className={task.completed ? 'completed' : ''}>
             {task.text}
             <button onClick={() => toggleTaskCompletion(task.id)}>
-              {task.completed ? 'Bajarilmadi': 'Bajarildi'}
+              {task.completed ? 'Bajarilmadi' : 'Bajarildi'}
             </button>
             <button onClick={() => deleteTask(task.id)}>O'chirish</button>
           </li>
-        ))
-
-        }
+        ))}
       </ul>
     </div>
   );
